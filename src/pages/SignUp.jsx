@@ -2,14 +2,56 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import Input from "../components/Input";
+import { validateEmail } from "../util/validation";
+import axiosConfig from "../util/axiosConfig";
+import { API_ENDPOINTS } from "../util/apiEndpoints";
+import toast from "react-hot-toast";
+import { LoaderCircle } from "lucide-react";
 
 function SignUp(){
     const [email,setEmail] = useState("");
     const [fullName,setFullName] = useState("");
     const [password,setPassword] = useState("");
     const [errors,setErrors] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
 
     const navigate = useNavigate();
+
+    async function handleOnSubmit(e){
+        e.preventDefault();
+        setIsLoading(true);
+        if(!fullName.trim()){
+            setErrors("Please enter your full name");
+            setIsLoading(false);
+            return;
+        }
+        if(!validateEmail(email)){
+            setErrors("Please enter valid e-mail");
+            setIsLoading(false);
+            return;
+        }
+        if(!password.trim()){
+            setErrors("Please enter your password");
+            setIsLoading(false);
+            return;
+        }
+        setErrors("");        
+
+        try {
+            const res = await axiosConfig.post(API_ENDPOINTS.REGISTER,{fullName,email,password});
+            if(res.status === 201){
+                toast.success("Account created successfully!");
+                navigate("/login");
+            }
+
+        } catch (error) {
+            console.error("Something went wrong",error);
+            setErrors(error.message);
+        }finally{
+            setIsLoading(false);
+
+        }
+    }
 
     return(
         <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
@@ -22,7 +64,7 @@ function SignUp(){
                     <p className="text-sm text-slate-700 text-center mb-8">
                         Start tracking your financial habits today!
                     </p>
-                    <form onSubmit={null} className="space-y-4">
+                    <form onSubmit={handleOnSubmit} className="space-y-4">
                         <div className="flex justify-center mb-6">
                             {/* Pfp */}
                         </div>
@@ -39,7 +81,7 @@ function SignUp(){
                                 onChange={(e)=>setEmail(e.target.value)}
                                 label="E-mail"
                                 placeholder="Enter e-mail"
-                                type="text"
+                                type="email"
                             />
                             <div className="col-span-2">
                                 <Input 
@@ -57,7 +99,15 @@ function SignUp(){
                                 {errors}
                             </p>
                         )}
-                        <button className="btn-primary bg-purple-700 text text-white w-full py-3 text-lg font-md rounded-md hover:bg-purple-800" type="submit">Sign Up</button>
+                        <button disabled={isLoading} className={`btn-primary bg-purple-700 text text-white w-full py-3 text-lg font-md rounded-md hover:bg-purple-800 flex items-center justify-center gap-2 ${isLoading ?  "opacity-60 cursor-not-allowed" : ""}`} type="submit">
+                            {isLoading ? (
+                                <> 
+                                    <LoaderCircle className="animate-spin w-5 h-5"/>
+                                    Signing Up...
+                                </>
+                            ) : ("Sign Up")
+                            }
+                        </button>
                         <p className="text-slate-800 text-sm text-center mt-6">Already have an account? <Link to="/login" className="font-md text-primary underline hover:text-primary-dark transition-colors">Login</Link> </p>
                     </form>
 
