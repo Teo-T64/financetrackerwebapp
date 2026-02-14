@@ -1,12 +1,59 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import Input from "../components/Input";
+import { validateEmail } from "../util/validation";
+import axiosConfig from "../util/axiosConfig";
+import { API_ENDPOINTS } from "../util/apiEndpoints";
+import { AppContext } from "../context/AppContext";
+import { LoaderCircle } from "lucide-react";
 function Login(){
 
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [errors,setErrors] = useState("");
+    const [isLoading,setIsLoading] = useState(false);
+    const{setUser} = useContext(AppContext);
+    const navigate = useNavigate();
+
+    async function handleOnSubmit(e){
+        e.preventDefault();
+        setIsLoading(true);
+        if(!validateEmail(email)){
+            setErrors("Please enter valid e-mail");
+            setIsLoading(false);
+            return;
+        }
+        if(!password.trim()){
+            setErrors("Please enter your password");
+            setIsLoading(false);
+            return;
+        }     
+        setErrors("");  
+
+        try {
+            const res = await axiosConfig.post(API_ENDPOINTS.LOGIN,{email,password});
+            const {token,user} = res.data;
+            if(token){
+                localStorage.setItem("token",token);
+                setUser(user);
+                navigate("/dashboard");
+            }
+
+
+        } catch (error) {
+            if(error.response && error.response.data.message){
+                setErrors(error.response.data.message);
+
+            }else{
+                console.error("Something went wrong.",error);
+                setErrors(error.message);
+            }
+            
+        } finally{
+            setIsLoading(false);
+        }
+    }
 
     return(
         <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
@@ -19,7 +66,7 @@ function Login(){
                         <p className="text-sm text-slate-700 text-center mb-8">
                             Start tracking your financial habits today!
                         </p>
-                        <form onSubmit={null} className="space-y-4">
+                        <form onSubmit={handleOnSubmit} className="space-y-4">
                             <Input 
                                 value={email}
                                 onChange={(e)=>setEmail(e.target.value)}
@@ -40,8 +87,16 @@ function Login(){
                                     {errors}
                                 </p>
                             )}
-                            <button className="btn-primary bg-purple-700 text text-white w-full py-3 text-lg font-md rounded-md hover:bg-purple-800" type="submit">Login</button>
-                            <p className="text-slate-800 text-sm text-center mt-6">Dont't have an account? <Link to="/signup" className="font-md text-primary underline hover:text-primary-dark transition-colors">Sign Up</Link> </p>
+                        <button disabled={isLoading} className={`btn-primary bg-purple-700 text text-white w-full py-3 text-lg font-md rounded-md hover:bg-purple-800 flex items-center justify-center gap-2 ${isLoading ?  "opacity-60 cursor-not-allowed" : ""}`} type="submit">
+                            {isLoading ? (
+                                <> 
+                                    <LoaderCircle className="animate-spin w-5 h-5"/>
+                                    Logging in...
+                                </>
+                            ) : ("Login")
+                            }
+                        </button>                            
+                        <p className="text-slate-800 text-sm text-center mt-6">Dont't have an account? <Link to="/signup" className="font-md text-primary underline hover:text-primary-dark transition-colors">Sign Up</Link> </p>
                         </form>
 
                     </div>
