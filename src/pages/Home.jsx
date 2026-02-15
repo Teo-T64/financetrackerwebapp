@@ -4,7 +4,9 @@ function Home(){
 
     return(
         <div>
-            <Dashboard/>
+            <Dashboard activeMenu="Dashboard">
+                Home page
+            </Dashboard>
         </div>
     )
 }

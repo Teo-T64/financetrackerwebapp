@@ -1,7 +1,11 @@
+import Dashboard from "../components/Dashboard";
+
 function Expense(){
 
     return(
-        <div>Expense</div>
+        <Dashboard activeMenu="Expense">
+            Expense page
+        </Dashboard>       
     )
 }
 

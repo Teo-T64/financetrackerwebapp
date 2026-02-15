@@ -1,10 +1,20 @@
 import MenuBar from "./MenuBar";
+import Sidebar from "./Sidebar";
 
-function Dashboard(){
+function Dashboard({children,activeMenu}){
+
 
     return(
         <div>
-            <MenuBar/>
+            <MenuBar activeMenu={activeMenu}/>
+            
+            <div className="flex">
+                <div className="max-[1080px]:hidden">
+                    <Sidebar activeMenu={activeMenu}/>
+                </div>
+                <div className="grow-mx-5">{children}</div>
+            </div>
+            
         </div>
     )
 }

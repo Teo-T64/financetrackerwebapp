@@ -1,7 +1,11 @@
+import Dashboard from "../components/Dashboard";
+
 function Filter(){
 
     return(
-        <div>Filter</div>
+        <Dashboard activeMenu="Filters">
+            Filter page
+        </Dashboard>       
     )
 }
 

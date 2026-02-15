@@ -1,7 +1,11 @@
+import Dashboard from "../components/Dashboard";
+
 function Category(){
 
     return(
-        <div>Category</div>
+        <Dashboard activeMenu="Category">
+            Category page
+        </Dashboard>       
     )
 }
 
