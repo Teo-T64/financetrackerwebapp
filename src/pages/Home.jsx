@@ -1,7 +1,11 @@
+import Dashboard from "../components/Dashboard";
+
 function Home(){
 
     return(
-        <div>Home</div>
+        <div>
+            <Dashboard/>
+        </div>
     )
 }
 

@@ -5,9 +5,14 @@ export const AppContext = createContext();
 export function AppContextProvider({children}){
     const [user,setUser] = useState(null);
 
+    function clearUser(){
+        setUser(null);
+    }
+
     const contextValue = {
         user,
-        setUser
+        setUser,
+        clearUser
     };
 
     return(
