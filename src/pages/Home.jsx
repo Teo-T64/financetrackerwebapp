@@ -1,7 +1,8 @@
 import Dashboard from "../components/Dashboard";
+import useUser from "../hooks/useUser";
 
 function Home(){
-
+    useUser();
     return(
         <div>
             <Dashboard activeMenu="Dashboard">
