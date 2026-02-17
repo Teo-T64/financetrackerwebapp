@@ -1,8 +1,7 @@
 import { Layers3, Pen } from "lucide-react";
 
 function CategoryList({categories, onDeleteCategory, onEditCategory}){
-
-
+    
     return(
         <div className="card p-4">
             <div className="flex items-center justify-between mb-4">
@@ -16,7 +15,7 @@ function CategoryList({categories, onDeleteCategory, onEditCategory}){
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                         {
-                            categories.map((category)=>(
+                            categories.map((category)=>(                                
                                 <div key={category.id} className="cursor-pointer border border-gray-300 group relative flex items-center p-3 gap-4 rounded-lg hover:bg-gray-300/60">
                                     
                                     <div className="w-12 h-12 flex items-center justify-center text-xl text-gray-800 bg-gray-100 rounded-full">

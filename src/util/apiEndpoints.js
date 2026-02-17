@@ -5,5 +5,6 @@ export const API_ENDPOINTS = {
     LOGIN : "/login",
     REGISTER : "/register",
     GET_ALL_CATEGORIES : "/categories",
+    ADD_CATEGORY: "/categories",
     GET_USER_INFO : "/profile",
 };
