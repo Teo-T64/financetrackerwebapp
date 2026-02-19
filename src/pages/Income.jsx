@@ -7,6 +7,7 @@ import { API_ENDPOINTS } from "../util/apiEndpoints";
 import IncomeList from "../components/IncomeList";
 import Modal from "../components/Modal.jsx"
 import { PlusCircle } from "lucide-react";
+import AddIncomeForm from "../components/AddIncomeForm.jsx";
 
 function Income(){
     const [incomeData, setIncomeData] = useState([]);
@@ -39,6 +40,63 @@ function Income(){
         }
     }
 
+    async function fetchIncomeCategories() {
+        try {
+            const res = await axiosConfig.get(API_ENDPOINTS.CATEGORY_BY_TYPE("income"));
+            if(res.status === 200){
+                setCategories(res.data);
+            }
+            
+        } catch (error) {
+            console.log("Error fetching income categories",error);
+            toast.error(error.message || "Failed to fetch income categories");
+            
+        }
+
+    }
+
+    async function handleAddIncome(income){
+        const {name,date,icon, amount,categoryId} = income;  
+        
+        if(!name.trim()){
+            toast.error("Name is required");
+            return;
+        }
+        if(!amount || isNaN(amount) || Number(amount)<=0){
+            toast.error("Invalid amount");
+            return;
+        }        
+        if(!date){
+            toast.error("Date is required");
+            return;
+        }
+
+        const today = new Date().toISOString().split("T")[0];
+        if(date > today){
+            toast.error("Invalid Date");
+            return;
+        }
+        if(!categoryId){
+            toast.error("Category is required");
+            return;
+        }
+
+        try {
+            const res = await axiosConfig.post(API_ENDPOINTS.ADD_INCOME,{name,date,icon, amount,categoryId});
+            if(res.status === 201){
+                toast.success("Successfully added income!");
+                setOpenIncomeModal(false);
+                fetchIncomeDetails();
+            }
+            
+        } catch (error) {
+            console.log("Error adding income",error);
+            toast.error(error.message || "Failed to add income");
+            
+        }
+
+    }
+
     function handleDelete(id){
         console.log(id);
         
@@ -46,6 +104,7 @@ function Income(){
 
     useEffect(()=>{
         fetchIncomeDetails();
+        fetchIncomeCategories();
     },[])
 
     return(
@@ -67,7 +126,7 @@ function Income(){
                         onClose={()=>setOpenIncomeModal(false)}
                         title="Add Income"
                     >
-                        Income Form
+                        <AddIncomeForm categories={categories} onAddIncome={handleAddIncome}/>
                     </Modal>
 
                 </div>
