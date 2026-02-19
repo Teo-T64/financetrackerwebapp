@@ -104,12 +104,12 @@ function Category(){
 
     return(
         <Dashboard activeMenu="Category">
-            <div className="mx-auto my-5">
+            <div className="mx-auto my-5 ">
                 <div className="flex items-center justify-between mb-5">
                     <h2 className="text-2xl font-semibold">All Categories</h2>
                     <button 
                         onClick={()=>setOpenAddCategoryModal(true)}
-                        className="add-btn cursor-pointer text-purple-700 font-extrabold bg-purple-200 p-4 rounded-md flex items-center gap-1">
+                        className="add-btn cursor-pointer text-purple-700 font-extrabold bg-purple-100 p-4 rounded-md flex items-center gap-1">
                         Add Category  
                         <Plus size={20}/>
                     </button>

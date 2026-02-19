@@ -7,5 +7,6 @@ export const API_ENDPOINTS = {
     GET_ALL_CATEGORIES : "/categories",
     ADD_CATEGORY: "/categories",
     EDIT_CATEGORY: (categoryId)=> `/categories/${categoryId}`,
+    GET_INCOMES: "/incomes",
     GET_USER_INFO : "/profile",
 };

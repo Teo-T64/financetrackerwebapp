@@ -4,7 +4,7 @@ import useUser from "../hooks/useUser";
 function Expense(){
     useUser();
     return(
-        <Dashboard activeMenu="Expense">
+        <Dashboard activeMenu="Expenses">
             Expense page
         </Dashboard>       
     )

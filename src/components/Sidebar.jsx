@@ -14,7 +14,7 @@ function Sidebar({activeMenu}){
             <div className="flex flex-col items-center justify-center gap-3 mt-3 mb-7">
                 <UserCircle2Icon className="w-15 h-15 text-xl text-purple-800"/>
                 <h5 className="text-gray-950 font-medium leading-6">
-                    {/*user.fullName*/} Name
+                    {user.fullName}
                 </h5>
             </div>
             {SIDEBAR_DATA.map((item,idx)=>(

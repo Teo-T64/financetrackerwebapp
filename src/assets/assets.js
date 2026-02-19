@@ -29,7 +29,7 @@ export const SIDEBAR_DATA = [
     },    
     {
         id:"04",
-        label: "Expense",
+        label: "Expenses",
         icon:Coins,
         path: "/expense"
     },    

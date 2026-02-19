@@ -3,7 +3,7 @@ import { Layers3, Pen } from "lucide-react";
 function CategoryList({categories, onEditCategory}){
     
     return(
-        <div className="card p-4">
+        <div className="relative flex flex-col my-6 bg-white border border-slate-200 rounded-lg w-full p-4">
             <div className="flex items-center justify-between mb-4">
                 <h4 className="text-lg font-semibold">
                     Category Sources
