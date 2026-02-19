@@ -6,5 +6,6 @@ export const API_ENDPOINTS = {
     REGISTER : "/register",
     GET_ALL_CATEGORIES : "/categories",
     ADD_CATEGORY: "/categories",
+    EDIT_CATEGORY: (categoryId)=> `/categories/${categoryId}`,
     GET_USER_INFO : "/profile",
 };

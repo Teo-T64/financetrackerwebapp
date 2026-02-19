@@ -2,12 +2,13 @@ import { Plus } from "lucide-react";
 import Dashboard from "../components/Dashboard";
 import useUser from "../hooks/useUser";
 import CategoryList from "../components/CategoryList";
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
 import Modal from "../components/Modal";
 import AddCategoryForm from "../components/AddCategoryForm";
+import axios from "axios";
 
 function Category(){
     const [loading, setLoading] = useState("");
@@ -46,6 +47,12 @@ function Category(){
 
     async function handleAddCategory(category){
         const {name,type,icon} = category;
+
+        const isDuplicate = categoryData.some((el)=>{return el.name.toLowerCase() === name.trim().toLowerCase();})
+        if(isDuplicate){
+            toast.error("Category already exists");
+            return;
+        }
         
         if(!name.trim()){
             toast.error("Category name required");
@@ -65,6 +72,36 @@ function Category(){
         }
     }
 
+    function handleEditCategory(category){
+        setSelectedCategory(category);
+        setOpenEditCategoryModal(true);
+        
+    }
+
+    async function handleUpdateCategory(updatedCategory){
+        const {id,name,type,icon} = updatedCategory;
+        if(!name.trim()){
+            toast.error("Category name required");
+            return;
+        }
+        if(!id){
+            toast.error("Missing category Id for updating");
+            return;
+        }
+
+        try {
+            await axiosConfig.put(API_ENDPOINTS.EDIT_CATEGORY(id),{name,type,icon});
+            toast.success("Category successfully updated!");
+            setOpenEditCategoryModal(false);
+            fetchCategoryData();
+            
+            
+        } catch (error) {
+            console.log("Error updating category",error);
+            toast.error(error?.message || "Failed to update category");
+        }
+    }
+
     return(
         <Dashboard activeMenu="Category">
             <div className="mx-auto my-5">
@@ -79,10 +116,15 @@ function Category(){
 
                 </div>
 
-                <CategoryList categories={categoryData}/>
+                <CategoryList categories={categoryData} onEditCategory={handleEditCategory}/>
 
                 <Modal title={"Add category"} isOpen={openAddCategoryModal} onClose={()=>setOpenAddCategoryModal(false)}>
                     <AddCategoryForm onAddCategory={handleAddCategory}/>
+
+                </Modal>
+
+                <Modal title={"Edit category"} isOpen={openEditCategoryModal} onClose={()=>{setOpenEditCategoryModal(false); setSelectedCategory(null);}}>
+                    <AddCategoryForm initialCategoryData={selectedCategory} onAddCategory={handleUpdateCategory} isEditing={true}/>
 
                 </Modal>
 

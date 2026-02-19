@@ -1,6 +1,6 @@
 import { Layers3, Pen } from "lucide-react";
 
-function CategoryList({categories, onDeleteCategory, onEditCategory}){
+function CategoryList({categories, onEditCategory}){
     
     return(
         <div className="card p-4">
@@ -41,7 +41,10 @@ function CategoryList({categories, onDeleteCategory, onEditCategory}){
                                     </div>
 
                                     <div className="flex items-center gap-2">
-                                        <button className="text-gray-400 hover:text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                        <button 
+                                            onClick={()=>onEditCategory(category)}
+                                            className="text-gray-400 hover:text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                                        >
                                             <Pen size={20}/>
 
                                         </button>
