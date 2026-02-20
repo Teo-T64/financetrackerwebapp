@@ -1,14 +1,13 @@
 import { Plus } from "lucide-react";
 import Dashboard from "../components/Dashboard";
 import useUser from "../hooks/useUser";
-import CategoryList from "../components/CategoryList";
+import CategoryList from "../components/category/CategoryList";
 import { act, useEffect, useState } from "react";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
 import Modal from "../components/Modal";
-import AddCategoryForm from "../components/AddCategoryForm";
-import axios from "axios";
+import AddCategoryForm from "../components/category/AddCategoryForm.jsx";
 
 function Category(){
     const [loading, setLoading] = useState("");

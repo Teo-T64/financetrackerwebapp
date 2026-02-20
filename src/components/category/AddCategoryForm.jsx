@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Input from "../components/Input.jsx"
-import EmojiPopUp from "./EmojiPopUp.jsx";
+import Input from "../Input.jsx"
+import EmojiPopUp from "../EmojiPopUp.jsx";
 import { LoaderCircle } from "lucide-react";
 
 function AddCategoryForm({onAddCategory,initialCategoryData,isEditing}){

@@ -1,5 +1,5 @@
 import { Download, Mail } from "lucide-react";
-import TransactionCard from "./TransactionCard";
+import TransactionCard from "../TransactionCard.jsx";
 import moment from "moment";
 
 function IncomeList({transactions,onDelete}){
