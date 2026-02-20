@@ -11,5 +11,8 @@ export const API_ENDPOINTS = {
     GET_INCOMES: "/incomes",
     ADD_INCOME:"/incomes",
     DELETE_INCOME:(id)=>`/incomes/${id}`,
+    GET_EXPENSES: "/expenses",
+    ADD_EXPENSE:"/expenses",
+    DELETE_EXPENSE:(id)=>`/expenses/${id}`,    
     GET_USER_INFO : "/profile",
 };

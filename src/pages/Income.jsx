@@ -4,12 +4,11 @@ import useUser from "../hooks/useUser";
 import toast from "react-hot-toast";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
-import IncomeList from "../components/income/IncomeList.jsx";
+import IncomeList from "../components/income-expense/IncomeList.jsx";
 import Modal from "../components/Modal.jsx"
-import { PlusCircle } from "lucide-react";
-import AddIncomeForm from "../components/income/AddIncomeForm.jsx";
+import AddIncomeForm from "../components/income-expense/AddIncomeForm.jsx";
 import DeleteAlert from "../components/DeleteAlert.jsx";
-import IncomeOverview from "../components/income/IncomeOverview.jsx";
+import IncomeOverview from "../components/income-expense/IncomeOverview.jsx";
 
 function Income(){
     const [incomeData, setIncomeData] = useState([]);
@@ -111,6 +110,13 @@ function Income(){
             toast.error(error.message || "Failed to delete income");
             
         }
+    }
+
+    function handleDownload(){
+
+    }
+
+    function handleEmail(){
 
     }
 
@@ -124,23 +130,20 @@ function Income(){
                 <div className="my-5 mx-auto">
                     <div className="grid grid-cols-1 gap-6">
                         <div>
-                            <button onClick={()=>setOpenIncomeModal(true)} className="flex items-center gap-2 cursor-pointer bg-purple-700 text-white font-semibold p-2 rounded-md">
-                                <PlusCircle size={25}/> Add Income   
-                            </button>
-                            <IncomeOverview transactions={incomeData}/>
+                            <IncomeOverview type="income"  transactions={incomeData} onAddIncome={()=>setOpenIncomeModal(true)}/>
                             
                         </div>
 
                     </div>
 
-                    <IncomeList transactions={incomeData} onDelete={(id)=>setOpenDeleteAlert({show:true,data:id})}/>
+                    <IncomeList type="income"  transactions={incomeData} onDelete={(id)=>setOpenDeleteAlert({show:true,data:id})}/>
 
                     <Modal 
                         isOpen={openIncomeModal}
                         onClose={()=>setOpenIncomeModal(false)}
                         title="Add Income"
                     >
-                        <AddIncomeForm categories={categories} onAddIncome={handleAddIncome}/>
+                        <AddIncomeForm type="income"  categories={categories} onAddIncome={handleAddIncome}/>
                     </Modal>
 
                     <Modal
@@ -149,6 +152,7 @@ function Income(){
                         title="Delete income"
                     >
                         <DeleteAlert
+                            type="income" 
                             content="Are you sure you want to delete this income detail?"
                             onDelete={()=>deleteIncome(openDeleteAlert.data)}
                         />

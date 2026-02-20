@@ -18,7 +18,7 @@ const CustomTooltip = ({ active, payload }) => {
         </div>
         <div className="mt-3 pt-2 border-t border-dashed flex justify-between text-sm font-bold text-indigo-600">
           <span>Total</span>
-          <span>${data.totalAmount.toLocaleString()}</span>
+          <span>€{data.totalAmount.toLocaleString()}</span>
         </div>
       </div>
     );
@@ -48,7 +48,7 @@ function CustomLineChart({ transactions }) {
           axisLine={false} 
           tickLine={false} 
           tick={{ fontSize: 11, fill: '#94a3b8' }}
-          tickFormatter={(val) => `$${val}`}
+          tickFormatter={(val) => `€${val}`}
         />
         
         <Tooltip content={<CustomTooltip />} />

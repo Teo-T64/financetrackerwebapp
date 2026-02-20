@@ -3,7 +3,7 @@ import EmojiPopUp from "../EmojiPopUp.jsx";
 import Input from "../Input.jsx"
 import { LoaderCircle } from "lucide-react";
 
-function AddIncomeForm({categories, onAddIncome}){
+function AddIncomeForm({categories, onAddIncome,type}){
     const [income,setIncome] = useState({
         name: "",
         date: "",
@@ -48,8 +48,8 @@ function AddIncomeForm({categories, onAddIncome}){
             <Input 
                 value={income.name}
                 onChange={({target})=>handleChange("name",target.value)}
-                label="Income Source"
-                placeholder="e.g. Salary, Freelance, Bonus"
+                label={type == "income" ? "Income Source" : "Expense Source"}
+                placeholder="e.g. Rent, Utilities, Transportation"
                 type="text"
             />
 
@@ -84,7 +84,7 @@ function AddIncomeForm({categories, onAddIncome}){
                             <LoaderCircle className="animate-spin w-5 h-5"/>
                             Adding...
                         </>
-                        ) : ("Add Income")
+                        ) : (type == "income" ? "Add Income" : "Add Expense")
                     }                     
                 </button>
             </div>  

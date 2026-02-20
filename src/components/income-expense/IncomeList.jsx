@@ -2,14 +2,14 @@ import { Download, Mail } from "lucide-react";
 import TransactionCard from "../TransactionCard.jsx";
 import moment from "moment";
 
-function IncomeList({transactions,onDelete}){
+function IncomeList({transactions,onDelete,type}){
 
 
     return(
         <div className="relative flex flex-col my-6 bg-white border p-6 border-slate-200 rounded-lg w-full">
             <div className="flex items-center justify-between">
                 <h5 className="text-2xl font-semibold">
-                    Income Sources
+                  {type == "income" ? "Income" : "Expense"} Sources
                 </h5>
 
                 <div className="flex items-center justify-end gap-2">
