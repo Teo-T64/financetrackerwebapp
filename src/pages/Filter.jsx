@@ -32,7 +32,7 @@ function Filter(){
 
         } catch (error) {
             console.log("Error filtering",error);
-            toast.error(error.message || "Failed to filter");
+            toast.error("Failed to filter");
         }finally{
             setLoading(false);
         }        

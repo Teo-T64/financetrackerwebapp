@@ -34,7 +34,7 @@ function Expense(){
             
         } catch (error) {
             console.log("Error fetching expenses", error);
-            toast.error(error?.message || "Failed to fetch expenses");
+            toast.error("Failed to fetch expenses");
             
         }finally{
             setLoading(false);
@@ -50,7 +50,7 @@ function Expense(){
             
         } catch (error) {
             console.log("Error fetching expense categories",error);
-            toast.error(error.message || "Failed to fetch expense categories");
+            toast.error("Failed to fetch expense categories");
             
         }
 
@@ -92,7 +92,7 @@ function Expense(){
             
         } catch (error) {
             console.log("Error adding expense",error);
-            toast.error(error.message || "Failed to add expense");
+            toast.error("Failed to add expense");
             
         }
 
@@ -107,7 +107,7 @@ function Expense(){
 
         } catch (error) {
             console.log("Error deleting expense",error);
-            toast.error(error.message || "Failed to delete expense");
+            toast.error("Failed to delete expense");
             
         }
     }

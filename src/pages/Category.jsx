@@ -25,14 +25,13 @@ function Category(){
         try {
             const res = await axiosConfig.get(API_ENDPOINTS.GET_ALL_CATEGORIES);
             if(res.status === 200){
-                console.log("fetched categories: ", res.data);
                 setCategoryData(res.data);
             }
             
 
         } catch (error) {
             console.error("Error fetching categories",error);
-            toast.error(error.message);
+            toast.error("Failed to fetch categories");
         }finally{
             setLoading(false);
 
@@ -66,7 +65,7 @@ function Category(){
             }
         } catch (error) {
             console.error("Error adding category",error);
-            toast.error(error?.message || "Failed to add category" );
+            toast.error("Failed to add category" );
             
         }
     }
@@ -97,7 +96,7 @@ function Category(){
             
         } catch (error) {
             console.log("Error updating category",error);
-            toast.error(error?.message || "Failed to update category");
+            toast.error("Failed to update category");
         }
     }
 
