@@ -2,7 +2,7 @@ import { Trash2, TrendingDown, TrendingUp, UtensilsCrossed, } from "lucide-react
 import { addCommas } from "../util/util";
  
 
-function TransactionCard({icon,title,date,amount,type,hideDeleteBtn,onDelete}){
+function TransactionCard({icon,title,date,amount,type,hideDeleteBtn,onDelete,categoryName}){
 
     function getAmountStyles(){
         return type === "income" ? "bg-green-50 text-green-800" :"bg-red-50 text-red-800";
@@ -25,7 +25,9 @@ function TransactionCard({icon,title,date,amount,type,hideDeleteBtn,onDelete}){
                     <p className="text-sm text-gray-700 font-md">
                         {title}
                     </p>
-
+                    <p className="text-xs text-gray-400 mt-1">
+                        {categoryName}
+                    </p>
                     <p className="text-xs text-gray-400 mt-1">
                         {date}
                     </p>

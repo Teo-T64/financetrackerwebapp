@@ -30,6 +30,7 @@ function Income(){
             const res = await axiosConfig.get(API_ENDPOINTS.GET_INCOMES);
             if(res.status === 200){
                 setIncomeData(res.data);
+                
             }
             
         } catch (error) {

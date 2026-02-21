@@ -50,6 +50,7 @@ function IncomeList({transactions,onDelete,onDownload,onEmail ,type}){
                         icon={income.icon}
                         date={moment(income.date).format("Do MMM YYYY")}
                         amount={income.amount}
+                        categoryName={income.categoryName}
                         type={type}
                         onDelete={()=>onDelete(income.id)}
                     />

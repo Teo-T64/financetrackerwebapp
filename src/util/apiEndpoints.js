@@ -19,4 +19,6 @@ export const API_ENDPOINTS = {
     EMAIL_EXPENSES: "/email/expense-excel",
     DELETE_EXPENSE:(id)=>`/expenses/${id}`,    
     GET_USER_INFO : "/profile",
+    APPLY_FILTERS:"/filter",
+    DASHBOARD_DATA: "/dashboard"
 };
