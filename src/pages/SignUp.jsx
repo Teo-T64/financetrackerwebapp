@@ -6,7 +6,7 @@ import { validateEmail } from "../util/validation";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
-import { LoaderCircle } from "lucide-react";
+import { Home, LoaderCircle } from "lucide-react";
 
 function SignUp(){
     const [email,setEmail] = useState("");
@@ -55,7 +55,14 @@ function SignUp(){
 
     return(
         <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
-            <img src={assets.login_bg} alt="Background" className="absolute inset-0 w-full h-full object-contain filter"/>
+            <div>
+                <img src={assets.login_bg} alt="Background" className="absolute inset-0 w-full h-full object-contain filter"/>
+
+                <button onClick={()=>navigate("/home")} className="absolute top-5 right-5 flex items-center gap-2 cursor-pointer text-white font-bold bg-purple-700 px-6 py-2 rounded-full hover:bg-purple-800 transition-all shadow-md hover:shadow-lg">
+                    Home<Home size={25}/>
+                </button>
+            </div>
+
             <div className="relative z-10 w-full max-w-lg px-5">
                 <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-lg shadow-2xl p-8 max-h-[90vh] overflow-y-auto">
                     <h3 className="text-2xl font-semibold text-black text-center mb-2">

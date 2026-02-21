@@ -25,7 +25,7 @@ function useUser(){
                 console.error("Failed to fetch user info",error);
                 if(isMounted){
                     clearUser();
-                    navigate("/login");
+                    navigate("/home");
                 }
                 
             }

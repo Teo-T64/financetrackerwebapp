@@ -108,7 +108,7 @@ function Category(){
                     <h2 className="text-2xl font-semibold">All Categories</h2>
                     <button 
                         onClick={()=>setOpenAddCategoryModal(true)}
-                        className="add-btn cursor-pointer text-purple-700 font-extrabold bg-purple-100 p-4 rounded-md flex items-center gap-1">
+                        className="cursor-pointer text-purple-700 font-extrabold bg-purple-100 p-4 rounded-md flex items-center gap-1">
                         Add Category  
                         <Plus size={20}/>
                     </button>

@@ -10,7 +10,7 @@ const axiosConfig = axios.create({
 })
 
 const excludeEndpoints = [
-    "/login", "/register", "health", "/activate", "/status"
+    "/login", "/register", "health", "/activate", "/status","/home"
 ];
 
 axiosConfig.interceptors.request.use((config) => {
@@ -36,7 +36,7 @@ axiosConfig.interceptors.response.use((res) => {
     if (err.response) {
         if (err.response.status === 401) {
             localStorage.removeItem("token");
-            window.location.href = "/login";
+            window.location.href = "/home";
         } else if (err.response.status === 500) {
             console.error("Server error. Try again later.");
         }
