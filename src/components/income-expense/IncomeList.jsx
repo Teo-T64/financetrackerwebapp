@@ -1,9 +1,29 @@
 import { Download, Mail } from "lucide-react";
 import TransactionCard from "../TransactionCard.jsx";
 import moment from "moment";
+import { useState } from "react";
 
-function IncomeList({transactions,onDelete,type}){
+function IncomeList({transactions,onDelete,onDownload,onEmail ,type}){
+    const [loading,setLoading] = useState(false);
 
+    async function handleDownload(){
+        setLoading(true);
+        try {
+            await onDownload();
+
+        }finally{
+            setLoading(false);
+        }
+    }
+
+    async function handleEmail(){
+        setLoading(true);
+        try{
+            await onEmail();
+        }finally{
+            setLoading(false);
+        }
+    }
 
     return(
         <div className="relative flex flex-col my-6 bg-white border p-6 border-slate-200 rounded-lg w-full">
@@ -13,10 +33,10 @@ function IncomeList({transactions,onDelete,type}){
                 </h5>
 
                 <div className="flex items-center justify-end gap-2">
-                    <button className="flex  items-center justify-center gap-2 bg-purple-100 font-semibold text-purple-700 p-2 rounded-md cursor-pointer">
+                    <button onClick={handleEmail} disabled={loading} className="flex  items-center justify-center gap-2 bg-purple-100 font-semibold text-purple-700 p-2 rounded-md cursor-pointer">
                         <Mail size={20} className="text-base"/> Email
                     </button>
-                    <button className="flex items-center justify-center gap-2 bg-purple-100 font-semibold text-purple-700 p-2 rounded-md cursor-pointer">
+                    <button onClick={handleDownload} disabled={loading} className="flex items-center justify-center gap-2 bg-purple-100 font-semibold text-purple-700 p-2 rounded-md cursor-pointer">
                         <Download size={20} className="text-base"/> Download
                     </button>                    
                 </div>
@@ -30,7 +50,7 @@ function IncomeList({transactions,onDelete,type}){
                         icon={income.icon}
                         date={moment(income.date).format("Do MMM YYYY")}
                         amount={income.amount}
-                        type="income"
+                        type={type}
                         onDelete={()=>onDelete(income.id)}
                     />
                 ))}

@@ -112,12 +112,44 @@ function Income(){
         }
     }
 
-    function handleDownload(){
+    async function handleDownload() {
+        try {
+            const res = await axiosConfig.get(API_ENDPOINTS.DOWNLOAD_INCOMES, {
+                responseType: 'blob', 
+            });
 
+            if (res.status === 200) {
+                const url = window.URL.createObjectURL(new Blob([res.data]));
+                
+                const link = document.createElement('a');
+                link.href = url;
+                
+                link.setAttribute('download', 'incomes.xlsx');
+                
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+                
+                window.URL.revokeObjectURL(url);
+                
+                toast.success("Download started!");
+            }
+        } catch (error) {
+            console.error("Error downloading incomes", error);
+            toast.error("Failed to download income report");
+        }
     }
 
-    function handleEmail(){
-
+    async function handleEmail(){
+        try {
+            const res = await axiosConfig.get(API_ENDPOINTS.EMAIL_INCOMES);
+            if (res.status === 200) {
+                toast.success("Email sent successfully");
+            }
+        } catch (error) {
+            console.error("Error emailing incomes", error);
+            toast.error("Failed to email income report");
+        }
     }
 
     useEffect(()=>{
@@ -136,7 +168,7 @@ function Income(){
 
                     </div>
 
-                    <IncomeList type="income"  transactions={incomeData} onDelete={(id)=>setOpenDeleteAlert({show:true,data:id})}/>
+                    <IncomeList type="income" onEmail={handleEmail} onDownload={handleDownload} transactions={incomeData} onDelete={(id)=>setOpenDeleteAlert({show:true,data:id})}/>
 
                     <Modal 
                         isOpen={openIncomeModal}

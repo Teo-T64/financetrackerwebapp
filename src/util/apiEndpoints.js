@@ -11,8 +11,12 @@ export const API_ENDPOINTS = {
     GET_INCOMES: "/incomes",
     ADD_INCOME:"/incomes",
     DELETE_INCOME:(id)=>`/incomes/${id}`,
+    DOWNLOAD_INCOMES:"/download/incomes",
+    EMAIL_INCOMES: "/email/income-excel",
     GET_EXPENSES: "/expenses",
     ADD_EXPENSE:"/expenses",
+    DOWNLOAD_EXPENSES:"/download/expenses",
+    EMAIL_EXPENSES: "/email/expense-excel",
     DELETE_EXPENSE:(id)=>`/expenses/${id}`,    
     GET_USER_INFO : "/profile",
 };
