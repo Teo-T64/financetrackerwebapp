@@ -1,6 +1,6 @@
 import logo from "./financeLogo.png"
 import login_bg from "./financeBackground.png"
-import screenshot from "./appScreenShot.png"
+import screenshot from "./appScreenshot.png"
 import { Coins, FunnelPlus, LayoutDashboard, List, Wallet } from "lucide-react";
 
 
